@@ -4,7 +4,7 @@
 import { collectFeed } from "./collectors/rss";
 import { collectArxiv } from "./collectors/arxiv";
 import { collectRepos, collectRepo } from "./collectors/github";
-import { collectModels, collectTrendingModels } from "./collectors/huggingface";
+import { collectModel, collectModels, collectTrendingModels } from "./collectors/huggingface";
 import { enabledFeeds } from "./sources/registry";
 import { clusterArticles, rankClusters } from "./pipeline";
 import { isAiRelevant, categorize, extractTags } from "./relevance";
@@ -135,6 +135,18 @@ export async function getPapers(): Promise<ResearchPaper[]> {
       return await collectArxiv(30);
     } catch (e) {
       console.error(`[ai-hub] arxiv failed — ${String(e)}`);
+      return [];
+    }
+  });
+}
+
+/** Models published by The Wider Lens on the Hugging Face Hub, shown apart from the tracker lists. */
+export async function getOwnModels(): Promise<AiModel[]> {
+  return cached("own-models", 3_600_000, async () => {
+    try {
+      return [await collectModel("TheWiderLensInitiative/laya-for-clara")];
+    } catch (e) {
+      console.error(`[ai-hub] huggingface (own models) failed — ${String(e)}`);
       return [];
     }
   });

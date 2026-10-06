@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { getModels, getTrendingModels, getProviderModels } from "@/lib/data";
+import { getModels, getTrendingModels, getProviderModels, getOwnModels } from "@/lib/data";
 import { ModelCard, ProviderModelCard, SectionHeader, EmptyState } from "@/components/cards";
+import { OwnModelCard } from "@/components/clara-card";
 import { TASK_LABELS } from "@/lib/format";
 
 export const revalidate = 3600; // 60 min — model trackers
@@ -19,7 +20,7 @@ export default async function ModelsPage({
   searchParams: Promise<{ task?: string }>;
 }) {
   const { task } = await searchParams;
-  const [models, trending, fresh] = await Promise.all([getModels(), getTrendingModels(), getProviderModels()]);
+  const [models, trending, fresh, own] = await Promise.all([getModels(), getTrendingModels(), getProviderModels(), getOwnModels()]);
   const filtered = task ? models.filter((m) => m.task === task) : models;
 
   return (
@@ -38,6 +39,20 @@ export default async function ModelsPage({
           ))}
         </div>
       </div>
+
+      {!task && own.length > 0 && (
+        <section aria-labelledby="ours">
+          <SectionHeader title="From The Wider Lens" />
+          <p className="-mt-2 mb-3 text-xs text-zinc-500 dark:text-zinc-400">
+            Our own model, shown separately: it isn&apos;t part of the tracker lists below.
+          </p>
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {own.map((m) => (
+              <OwnModelCard key={m.id} model={m} />
+            ))}
+          </div>
+        </section>
+      )}
 
       <section aria-labelledby="recent">
         <SectionHeader title={task ? `${TASK_LABELS[task] ?? task} models` : "Recently updated"} />

@@ -76,6 +76,12 @@ export async function collectModels(limit = 30): Promise<AiModel[]> {
   return data.map(toModel);
 }
 
+/** One model by id (e.g. our own), with the same real Hub metadata as the lists. */
+export async function collectModel(id: string): Promise<AiModel> {
+  const url = `https://huggingface.co/api/models/${id}`;
+  return toModel(await fetchJson<HubModelJson>(url, { timeoutMs: 15000, revalidate: REVALIDATE.models }));
+}
+
 /** Most-liked models — a stable "interesting right now" list. */
 export async function collectTrendingModels(limit = 15): Promise<AiModel[]> {
   const url =

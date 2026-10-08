@@ -19,6 +19,10 @@ export function ClaraCard({ placement = "home" }: { placement?: string }) {
         <p className="mt-3 text-sm leading-relaxed text-zinc-400">
           A private AI assistant that runs on your own PC. Free and open source. Beta testers wanted for the Android app!
         </p>
+        <p className="mt-2 text-xs leading-relaxed text-zinc-500">
+          <span className="font-semibold text-sky-400">New:</span> Outlook and Dropbox in one tap, any site through
+          logins saved on your phone, and she thinks as hard as the job needs.
+        </p>
         <a
           href={url}
           className="mt-3 block rounded-md bg-gradient-to-r from-sky-500 via-violet-500 to-fuchsia-500 px-3 py-2 text-center text-sm font-semibold text-white transition hover:opacity-90"
@@ -47,9 +51,10 @@ export function OwnModelCard({ model }: { model: AiModel }) {
             </h3>
             <p className="mt-1.5 text-sm text-zinc-400">
               The small model that reads every message to Clara, our private AI assistant. One model now answers
-              four questions in about a third of a second on a CPU: chat or task, quick or deep, what kind of help
-              it needs, and whether you&apos;re following up on what she just did. A fine-tune of ConvAI
-              Innovations&apos; Laya (ModernBERT-large, 421M parameters).
+              five questions in about a third of a second on a CPU: chat or task, quick or deep, what kind of help
+              it needs, whether you&apos;re following up on what she just did, and, before her browser clicks a
+              button, whether that click needs your OK first. A fine-tune of ConvAI Innovations&apos; Laya
+              (ModernBERT-large, 421M parameters).
             </p>
             <p className="mt-2 flex flex-wrap gap-x-2 text-xs text-zinc-500">
               {/* a brand-new model's likes and downloads say little: show them once they mean something */}

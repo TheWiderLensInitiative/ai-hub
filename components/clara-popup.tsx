@@ -72,7 +72,8 @@ export function ClaraPopup() {
           <h2 className="mt-3 text-xl font-bold leading-snug">Meet Clara, your private AI assistant</h2>
           <p className="mt-2 text-sm leading-relaxed text-zinc-400">
             She runs on your own PC, not in the cloud: research, reminders, files, a browser of her own, and hands-free
-            voice, all from an Android app. Free and open source, and we're looking for beta testers.
+            voice, all from an Android app. New: Outlook and Dropbox in one tap, and any site through logins saved on
+            your phone. Free and open source, and we're looking for beta testers.
           </p>
           <a
             href={CLARA_URL}
